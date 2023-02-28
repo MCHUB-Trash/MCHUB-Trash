@@ -1287,6 +1287,38 @@ local function GetIsLand(...)
 		end 
 	end
 end
+local j=game:GetService("UserInputService");
+local c=game:GetService("ReplicatedStorage");
+local e=c:WaitForChild("Remotes");
+local E=e:WaitForChild("CommF_");
+local a=e:WaitForChild("CommE");
+local l=game:GetService("HttpService");
+local t=game:GetService("RunService");
+local q=workspace:WaitForChild("Enemies");
+local s=game:GetService("Teams");
+local J=game:GetService("Players");
+local W=game:GetService('VirtualUser');
+function TP(P1)
+	if not _G.Stop_Tween then
+		local Distance = (P1.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+		Speed = 100
+		if Distance < 250 then
+			Speed = 100000000
+		elseif Distance < 500 then
+			Speed = 100000000
+		elseif Distance < 1000 then
+			Speed = 100000000
+		elseif Distance >= 1000 then
+			Speed = 100000000
+		end
+		Tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart,TweenInfo.new(Distance/Speed, Enum.EasingStyle.Linear),{CFrame = P1})
+		if _G.Stop_Tween or Auto_Raid then
+			Tween:Cancel()
+		elseif game.Players.LocalPlayer.Character.Humanoid.Health > 0 then
+			Tween:Play()
+		end
+	end
+end
 local function toTarget(...)
 	local RealtargetPos = {...}
 	local targetPos = RealtargetPos[1]
@@ -1325,36 +1357,57 @@ local function toTarget(...)
 					wait(.1)
 					Com("F_","TeleportToSpawn")
 				elseif game:GetService("Players")["LocalPlayer"].Data:FindFirstChild("LastSpawnPoint").Value == tostring(GetIsLand(RealTarget)) then
-					game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(15)
-					wait(0.1)
-					repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+					E:InvokeServer("SetSpawnPoint")
+					wait()
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
+					task.wait(.1)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+					E:InvokeServer("SetSpawnPoint")
+					local args = {
+					[1] = "SetTeam",
+					[2] = "Pirates"
+					}
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					--toTarget(CFrame.new(5308, 2, 474))
+					wait()
+					repeat wait() until game.Players.LocalPlayer
 				else
 					if game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0 then
 						if fkwarp == false then
-							if World3 then
-								tween:cancel()
-								if (Vector3.new(-5079.44677734375, 313.7293395996094, -3151.065185546875) - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 2000 then
-									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer('requestEntrance',Vector3.new(-5079.44677734375, 313.7293395996094, -3151.065185546875))
-								end
-								task.wait(.4)
-								tween:play()
-							end
-							tween:cancel()
-							a=0
-							repeat task.wait()
-								a=a+1
-								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
-								game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health = 0
-								game.Players.LocalPlayer.Character.Humanoid.Health = -math.huge
-							until a>=27 or fkwarp == true
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+							E:InvokeServer("SetSpawnPoint")
+							wait()
+							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
+							task.wait(.1)
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+							E:InvokeServer("SetSpawnPoint")
+							local args = {
+							[1] = "SetTeam",
+							[2] = "Pirates"
+							}
+							game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+							--toTarget(CFrame.new(5308, 2, 474))
+							wait()
 						end
-						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
-						game.Players.LocalPlayer.Character.Humanoid.Health = -math.huge
 						fkwarp = true
 					end
 					wait(.08)
-					game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid"):ChangeState(15)
-					repeat wait() until game:GetService("Players").LocalPlayer.Character:WaitForChild("Humanoid").Health > 0
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+					E:InvokeServer("SetSpawnPoint")
+					wait()
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
+					task.wait(.1)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
+					E:InvokeServer("SetSpawnPoint")
+					local args = {
+					[1] = "SetTeam",
+					[2] = "Pirates"
+					}
+					game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+					--toTarget(CFrame.new(5308, 2, 474))
+					wait()
+					repeat wait() until game.Players.LocalPlayer
 					wait(.1)
 					Com("F_","SetSpawnPoint")
 				end
@@ -9520,6 +9573,7 @@ function autosaber()
 									}
 									game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
 								end
+								hit()
 								FastAttackSpeed = true
 								v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 								toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
@@ -9570,6 +9624,7 @@ function autosaber()
 									repeat task.wait();
 										EquipWeapon(SelectToolWeapon)
 										FastAttackSpeed = true
+										hit()
 										m.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 										toTarget(m.HumanoidRootPart.CFrame*CFrame.new(0,30,15));
 									until m.Humanoid.Health<=0 or not _G.Auto_Farm
@@ -9581,6 +9636,7 @@ function autosaber()
 										EquipWeapon(SelectToolWeapon)
 										m.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
 										FastAttackSpeed = true
+										hit()
 										toTarget(m.HumanoidRootPart.CFrame*CFrame.new(0,30,15))
 									until m.Humanoid.Health<=0 or not _G.Auto_Farm
 								end
@@ -11209,7 +11265,7 @@ end
 -- )
 tg = tick()
 task.spawn(function()
-	while true do task.wait(.000000000000000000000000000000000000000000000000000000000001)
+	while true do wait()
 		pcall(function()
 			if FastAttackSpeed then
 				local ac = Y.activeController
