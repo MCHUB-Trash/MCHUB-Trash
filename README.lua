@@ -1407,9 +1407,8 @@ local function toTarget(...)
 					wait()
 					repeat wait(.2)
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
-						wait(0.1)
+						wait(0.5)
 						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
-						wait(0.1)
 						local args = {
 							[1] = "SetTeam",
 							[2] = "Pirates"
@@ -1425,9 +1424,8 @@ local function toTarget(...)
 							wait()
 							repeat wait(.2)
 								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
-								wait(0.1)
+								wait(0.5)
 								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
-								wait(0.1)
 								local args = {
 									[1] = "SetTeam",
 									[2] = "Pirates"
@@ -1442,9 +1440,8 @@ local function toTarget(...)
 					wait()
 					repeat wait(.2)
 						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RealTarget
-						wait(0.1)
+						wait(0.5)
 						game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
-						wait(0.1)
 						local args = {
 							[1] = "SetTeam",
 							[2] = "Pirates"
@@ -8650,14 +8647,14 @@ end
 function autofarmsky()
 	GetQuestTitle = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title
 	GetQuest = game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest
-	SPAWNPOINT = "Sky2"
-	if game:GetService("Workspace").Enemies:FindFirstChild("Shanda [Lv. 475]") then
+	SPAWNPOINT = "Sky"
+	if game:GetService("Workspace").Enemies:FindFirstChild("God's Guard [Lv. 450]") then
 		for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-			if v.Name == "Shanda [Lv. 475]" then
+			if v.Name == "God's Guard [Lv. 450]" then
 				if v.Humanoid.Health > 0 then
 					if v:FindFirstChild("Humanoid") or v:FindFirstChild("HumanoidRootPart") and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 250 then
 						repeat wait()
-							--if InMyNetWork(v.HumanoidRootPart) then
+							if InMyNetWork(v.HumanoidRootPart) then
 								v.Humanoid.JumpPower = 0
 								v.Humanoid.WalkSpeed = 0
 								v.HumanoidRootPart.CanCollide = false
@@ -8679,7 +8676,7 @@ function autofarmsky()
 									game:service('VirtualInputManager'):SendKeyEvent(false, "V", false, game)
 								end
 								toTarget(v.HumanoidRootPart.CFrame * CFrame.new(0,30,0))
-							--end
+							end
 						until v.Humanoid.Health <= 0 or not _G.Auto_Farm
 						Bringmob = false
 						FastAttackSpeed = false
@@ -8688,10 +8685,10 @@ function autofarmsky()
 			end
 		end
 	else
-		if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047)).Magnitude <= 1500 then
-			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047))			
+		if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(-4607.82275, 872.54248, -1667.55688)).Magnitude <= 1500 then
+			game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
 		else
-			toTarget(CFrame.new(-7643.38, 5545.62, -506.671))
+			toTarget(CFrame.new(-4698, 845, -1912))
 		end
 	end
 end
@@ -11126,7 +11123,7 @@ end;
 tg = 0
 task.spawn(
 	function()
-		while true do task.wait();
+		while true do wait();
 			pcall(
 				function()
 					if FastAttackSpeed then
@@ -11152,6 +11149,11 @@ task.spawn(
 	end
 )
 function hit()
+	task.spawn(Unboost)
+	task.spawn(Unboost)
+	task.spawn(Unboost)
+	task.spawn(Unboost)
+	task.spawn(Unboost)
 	task.spawn(Unboost)
 end
 tg = 0
