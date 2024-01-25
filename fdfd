@@ -2693,7 +2693,7 @@ task.spawn(function()
 	game:GetService("RunService").Stepped:Connect(function()
 		pcall(function()
 			--[World 1]
-			if _G.AUTO_SAHRK_ANCHOR or _G.Auto_Cake_Prince then
+			if _G.AUTO_SAHRK_ANCHOR or _G.Auto_Cake_Prince or _G.Enable_Pull_ever or _G.Enable_Find_Mirage or _G.Enable_Find_Gear then
 				if syn then
 					setfflag("HumanoidParallelRemoveNoPhysics", "False")
 					setfflag("HumanoidParallelRemoveNoPhysicsNoSimulate2", "False")
