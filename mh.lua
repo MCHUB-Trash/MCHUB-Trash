@@ -66,9 +66,11 @@ TextLabel.TextWrapped = true
 
 spawn(function()
     while true do wait()
-        if _G.Settings.Main["CHECK_TIRAL"] == true then
-            _G.Tier = "nil"
-        end
+        pcall(function()
+            if _G.Settings.Main["CHECK_TIRAL"] == true then
+                _G.Tier = "nil"
+            end
+        end)
     end
 end)
 
@@ -334,22 +336,6 @@ local RigController = require(game:GetService("Players")["LocalPlayer"].PlayerSc
 local RigControllerR = getupvalues(RigController)[2]
 local realbhit = require(game.ReplicatedStorage.CombatFramework.RigLib)
 local cooldownfastattack = tick()
-function maxincrement2()
-	return #Crit.activeController.anims.basic
-end
-spawn(function()
-    local old
-    old = hookmetamethod(game, "__namecall",function(self,...)
-        local method = getnamecallmethod() local args = {...}
-
-        if method:lower() == "fireserver" then
-            if args[1] == "hit" then
-                args[3] = maxincrement2()
-                return old(self,unpack(args))
-            end end
-        return old(self,...)
-	end) 
-end)
 function CurrentWeapon()
 	local ac = CombatFrameworkR.activeController
 	local ret = ac.blades[1]
@@ -412,9 +398,6 @@ local c = game:GetService("ReplicatedStorage")
 local Q = require(x.PlayerScripts.CombatFramework);
 local Y = getupvalues(Q)[2];
 local C = require(game.ReplicatedStorage.Util.CameraShaker):Stop();
-if game:GetService("ReplicatedStorage").Util.Sound:FindFirstChild("Storage") then
-	game:GetService("ReplicatedStorage").Util.Sound:FindFirstChild("Storage"):Remove()
-end
 function Maxincrement()
     local H = #Y.activeController.anims.basic;
     return H;
