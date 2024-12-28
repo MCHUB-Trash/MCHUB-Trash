@@ -98,7 +98,7 @@ local InterfaceManager = {} do
 			Max = 5,
 			Rounding = 1,
 			Callback = function(Value)
-				Settings.Transparency
+				Settings.Transparency = Value
 			end
 		})
 
