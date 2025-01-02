@@ -19,9 +19,6 @@ local windows = {}
 
 local baseui = Instance.new("ScreenGui")
 if not runS:IsStudio() then
-	if syn then
-		syn.protect_gui(baseui)
-	end
 	baseui.Parent = game:GetService('CoreGui')
 else
 	baseui.Parent = pgui
