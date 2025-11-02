@@ -13,6 +13,7 @@ local ThemeManager = {} do
 		['Ubuntu'] 			= { 6, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"3e3e3e","AccentColor":"e2581e","BackgroundColor":"323232","OutlineColor":"191919"}') },
 		['BBot'] 			= { 7, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1e1e","AccentColor":"7e48a3","BackgroundColor":"232323","OutlineColor":"141414"}') },
 		['Fatality']		= { 8, httpService:JSONDecode('{"FontColor":"ffffff","MainColor":"1e1842","AccentColor":"c50754","BackgroundColor":"191335","OutlineColor":"3c355d"}') },
+		['Halloween'] = { 9, httpService:JSONDecode('{"FontColor":"ff8800","MainColor":"0d0d0d","AccentColor":"ff6600","BackgroundColor":"000000","OutlineColor":"331a00"}') },
 	}
 
 	function ThemeManager:ApplyTheme(theme)
